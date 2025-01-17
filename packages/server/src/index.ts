@@ -27,6 +27,8 @@ import { Prometheus } from './metrics/Prometheus'
 import { OpenTelemetry } from './metrics/OpenTelemetry'
 import { WHITELIST_URLS } from './utils/constants'
 import 'global-agent/bootstrap'
+import authRouter from './routes/auth/auth'
+import { authenticateToken } from './middlewares/auth/auth'
 
 declare global {
     namespace Express {

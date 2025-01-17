@@ -1,3 +1,4 @@
+// src/api/chatflows.js
 import client from './client'
 
 const getAllChatflows = () => client.get('/chatflows?type=CHATFLOW')

@@ -202,6 +202,7 @@ export interface ISeqAgentNode {
     checkpointMemory?: any
     agentInterruptToolNode?: any
     agentInterruptToolFunc?: any
+    user?: string
 }
 
 export interface ITeamState {

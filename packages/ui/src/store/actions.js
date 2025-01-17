@@ -4,7 +4,7 @@ export const MENU_TOGGLE = '@customization/MENU_TOGGLE'
 export const MENU_OPEN = '@customization/MENU_OPEN'
 export const SET_FONT_FAMILY = '@customization/SET_FONT_FAMILY'
 export const SET_BORDER_RADIUS = '@customization/SET_BORDER_RADIUS'
-export const SET_LAYOUT = '@customization/SET_LAYOUT '
+export const SET_LAYOUT = '@customization/SET_LAYOUT'
 export const SET_DARKMODE = '@customization/SET_DARKMODE'
 
 // action - canvas reducer
@@ -24,6 +24,11 @@ export const REMOVE_SNACKBAR = 'REMOVE_SNACKBAR'
 // action - dialog reducer
 export const SHOW_CONFIRM = 'SHOW_CONFIRM'
 export const HIDE_CONFIRM = 'HIDE_CONFIRM'
+
+// action - auth reducer
+export const LOGIN = '@auth/LOGIN'
+export const LOGOUT = '@auth/LOGOUT'
+export const SET_USER = '@auth/SET_USER'
 
 export const enqueueSnackbar = (notification) => {
     const key = notification.options && notification.options.key
@@ -46,4 +51,19 @@ export const closeSnackbar = (key) => ({
 export const removeSnackbar = (key) => ({
     type: REMOVE_SNACKBAR,
     key
+})
+
+// Auth actions
+export const login = (userData) => ({
+    type: LOGIN,
+    payload: userData
+})
+
+export const logout = () => ({
+    type: LOGOUT
+})
+
+export const setUser = (user) => ({
+    type: SET_USER,
+    payload: user
 })

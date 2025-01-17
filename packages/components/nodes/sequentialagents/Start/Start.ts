@@ -55,6 +55,13 @@ class Start_SeqAgents implements INode {
                 type: 'Moderation',
                 optional: true,
                 list: true
+            },
+            {
+                label: 'User Context',
+                name: 'user',
+                type: 'string',
+                description: 'User context for multi-user support',
+                optional: true
             }
         ]
     }
@@ -73,7 +80,8 @@ class Start_SeqAgents implements INode {
             llm: model,
             startLLM: model,
             moderations,
-            checkpointMemory: nodeData.inputs?.agentMemory
+            checkpointMemory: nodeData.inputs?.agentMemory,
+            user: nodeData.inputs?.user // Add this line
         }
 
         return returnOutput

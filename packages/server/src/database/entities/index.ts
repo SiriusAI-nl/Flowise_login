@@ -11,6 +11,7 @@ import { Lead } from './Lead'
 import { UpsertHistory } from './UpsertHistory'
 import { ApiKey } from './ApiKey'
 import { CustomTemplate } from './CustomTemplate'
+export * from './Users'
 
 export const entities = {
     ChatFlow,
