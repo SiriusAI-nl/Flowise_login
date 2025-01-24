@@ -38,5 +38,5 @@ services:
             - '${PORT}:${PORT}'
         volumes:
             - ~/.flowise:/root/.flowise
-            - ./packages/ui/src/config/firebase/firebaseConfig.js:/app/packages/ui/src/config/firebase/firebaseConfig.js
+            - ./packages/ui:/app/packages/ui
         entrypoint: /bin/sh -c "sleep 3; flowise start"

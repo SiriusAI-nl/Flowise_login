@@ -1,37 +1,66 @@
-FROM node:20-alpine
+# Stage 1: Build stage
+FROM node:20-alpine AS build
 
-RUN apk add --update libc6-compat python3 make g++
-# needed for pdfjs-dist
-RUN apk add --no-cache build-base cairo-dev pango-dev
+USER root
 
-# Install Chromium
-RUN apk add --no-cache chromium
-
-# Install PNPM globally
-RUN npm install -g pnpm
-
-# Copy the .env file into the container
-COPY ./packages/ui/.env .env
-
-# Load environment variables from .env file
-RUN export $(grep -v '^#' .env | xargs)
-
-# Copy the Firebase configuration file
-COPY ./packages/ui/src/config/firebase/firebaseConfig.js /usr/src/packages/ui/src/config/firebase/firebaseConfig.js
-
+# Skip downloading Chrome for Puppeteer (if not needed)
 ENV PUPPETEER_SKIP_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-ENV NODE_OPTIONS=--max-old-space-size=8192
+# Set the working directory
+WORKDIR /app
 
-WORKDIR /usr/src/packages/ui
+# Copy package files
+COPY package.json pnpm-workspace.yaml pnpm-lock.yaml ./
+COPY packages/server/package.json ./packages/server/
+COPY packages/ui/package.json ./packages/ui/
+COPY packages/components/package.json ./packages/components/
 
-# Copy app source
-COPY ./packages/ui .
+# Install build dependencies and pnpm (combined RUN commands)
+RUN apk update && \
+    apk add --no-cache python3 make g++ git chromium build-base cairo-dev pango-dev && \
+    npm install -g pnpm typescript @types/node
 
-RUN pnpm install
+# Install workspace dependencies
+RUN pnpm install --no-frozen-lockfile
+
+# Copy all source code
+COPY . .
+
+# Build components and UI
+WORKDIR /app/packages/components
 RUN pnpm build
 
-EXPOSE 3000
+WORKDIR /app/packages/ui
+RUN pnpm build
 
-ENTRYPOINT ["pnpm", "start"]
+# Prepare server build
+WORKDIR /app/packages/server
+RUN pnpm build 
+
+# Stage 2: Runtime stage
+FROM node:20-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apk update && apk add --no-cache chromium 
+
+# Set environment variable for Puppeteer
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
+# Copy everything from the build stage
+COPY --from=build /app ./
+
+# Make the run script executable
+WORKDIR /app/packages/server/bin
+RUN chmod +x run
+
+# Set working directory back to server
+WORKDIR /app/packages/server
+
+# Expose the server port
+EXPOSE 3000 
+
+# Start the server
+CMD ["./bin/run", "start"]

@@ -209,8 +209,7 @@ const Chatflows = () => {
                 </Stack>
             )}
 
-            <LoginDialog show={loginDialogOpen} dialogProps={loginDialogProps} onConfirm={onLoginClick} />
-            <ConfirmDialog />
+
         </MainCard>
     )
 }

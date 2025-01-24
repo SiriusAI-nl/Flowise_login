@@ -6,7 +6,7 @@ import { ICommonObject, IMultiModalOption, INode, INodeData, INodeOptionsValue, 
 import { getBaseClasses, getCredentialData, getCredentialParam } from '../../../src/utils'
 import { ChatOpenAI } from './FlowiseChatOpenAI'
 import { getModels, MODEL_TYPE } from '../../../src/modelLoader'
-import { HttpsProxyAgent } from 'https-proxy-agent'
+import HttpsProxyAgent from 'https-proxy-agent';
 
 class ChatOpenAI_ChatModels implements INode {
     label: string

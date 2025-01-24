@@ -8,6 +8,7 @@ import { auth } from '@/config/firebase/firebaseConfig'
 const ProtectedRoute = ({ children }) => {
     const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState(true)
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -18,14 +19,24 @@ const ProtectedRoute = ({ children }) => {
                     // Force token refresh to ensure it's valid
                     const token = await user.getIdToken(true)
                     localStorage.setItem('authToken', token)
+                    // Also set these to prevent Flowise default login from appearing
+                    localStorage.setItem('username', 'firebase-user')
+                    localStorage.setItem('password', 'firebase-auth')
+                    setIsAuthenticated(true)
                     setIsLoading(false)
                 } catch (error) {
                     console.error('Token refresh error:', error)
                     localStorage.removeItem('authToken')
+                    localStorage.removeItem('username')
+                    localStorage.removeItem('password')
+                    setIsAuthenticated(false)
                     navigate('/login', { replace: true })
                 }
             } else {
                 localStorage.removeItem('authToken')
+                localStorage.removeItem('username')
+                localStorage.removeItem('password')
+                setIsAuthenticated(false)
                 navigate('/login', { replace: true })
             }
         })
@@ -49,7 +60,8 @@ const ProtectedRoute = ({ children }) => {
         )
     }
 
-    return children
+    // Only render children if authenticated
+    return isAuthenticated ? children : null
 }
 
 export default ProtectedRoute
