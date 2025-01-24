@@ -627,6 +627,9 @@ importers:
       http-status-codes:
         specifier: ^2.3.0
         version: 2.3.0
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
       jsonwebtoken:
         specifier: ^9.0.2
         version: 9.0.2
@@ -639,6 +642,9 @@ importers:
       lucide-react:
         specifier: ^0.471.1
         version: 0.471.1(react@18.2.0)
+      lunary:
+        specifier: ^0.7.12
+        version: 0.7.12(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))(react@18.2.0)
       moment:
         specifier: ^2.29.3
         version: 2.30.1

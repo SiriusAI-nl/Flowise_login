@@ -1,8 +1,9 @@
-// src/views/login/index.jsx
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
 import { styled } from '@mui/material/styles'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../../config/firebase/firebaseConfig'
 
 const StyledContainer = styled(Box)({
     display: 'flex',
@@ -80,19 +81,48 @@ const Login = () => {
             setIsLoading(true)
             setError('')
 
-            localStorage.setItem('username', email)
-            localStorage.setItem('password', password)
+            // Firebase authentication
+            const userCredential = await signInWithEmailAndPassword(auth, email, password)
+            const user = userCredential.user
+            
+            // Store the user token
+            const token = await user.getIdToken()
+            localStorage.setItem('token', token)
+            localStorage.setItem('user', JSON.stringify({
+                email: user.email,
+                uid: user.uid
+            }))
 
             navigate('/')
         } catch (err) {
             console.error('Login error:', err)
-            setError('Invalid email or password')
-            localStorage.removeItem('username')
-            localStorage.removeItem('password')
+            // Handle Firebase specific errors
+            switch (err.code) {
+                case 'auth/invalid-email':
+                    setError('Invalid email format')
+                    break
+                case 'auth/user-disabled':
+                    setError('This account has been disabled')
+                    break
+                case 'auth/user-not-found':
+                    setError('No account found with this email')
+                    break
+                case 'auth/wrong-password':
+                    setError('Incorrect password')
+                    break
+                default:
+                    setError('Failed to log in. Please try again.')
+            }
+            // Clean up local storage on error
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
         } finally {
             setIsLoading(false)
         }
     }
+
+    // Keep all your JSX return the same...
+    
 
     return (
         <StyledContainer>
@@ -170,9 +200,7 @@ const Login = () => {
                     {isLoading ? 'Logging in...' : 'Log In'}
                 </StyledButton>
 
-                <Box sx={{ mt: 2, textAlign: 'center' }}>
-                    <StyledLink href='/register'>Don't have an account? Sign Up</StyledLink>
-                </Box>
+                
             </StyledFormContainer>
 
             <Box

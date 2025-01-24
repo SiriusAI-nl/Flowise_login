@@ -2,33 +2,35 @@
 import axios from 'axios'
 import { auth } from '@/config/firebase/firebaseConfig'
 
+// packages/ui/src/utils/axios.js
+import axios from 'axios'
+import { auth } from '@/config/firebase/firebaseConfig'
+
+const baseURL = import.meta.env.VITE_API_URL || '/api/v1'  // Default to relative path if not set
+
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:3000/api/v1',
+    baseURL,
     timeout: 30000,
     headers: {
         'Content-Type': 'application/json'
     }
 })
 
+// Rest of your code stays the same...
+
 // Request interceptor
+// src/utils/axios.js
 axiosInstance.interceptors.request.use(
     async (config) => {
-        try {
-            const user = auth.currentUser
-            if (user) {
-                const token = await user.getIdToken(true) // Force token refresh
-                config.headers['Authorization'] = `Bearer ${token}`
-            }
-            return config
-        } catch (error) {
-            console.error('Auth token error:', error)
-            return Promise.reject(error)
+        const token = localStorage.getItem('token') // Match the key used in login
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`
         }
+        return config
     },
-    (error) => {
-        return Promise.reject(error)
-    }
+    (error) => Promise.reject(error)
 )
+
 
 // Response interceptor
 axiosInstance.interceptors.response.use(

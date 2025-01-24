@@ -120,6 +120,10 @@ export class App {
 
         // Add the sanitizeMiddleware to guard against XSS
         this.app.use(sanitizeMiddleware)
+        this.app.get('/health', (req, res) => {
+            res.status(200).send('OK')
+        })
+        
 
         // Make io accessible to our router on req.io
         this.app.use((req, res, next) => {
@@ -268,6 +272,7 @@ export async function start(): Promise<void> {
 
     const host = process.env.HOST
     const port = parseInt(process.env.PORT || '', 10) || 3000
+    
     const server = http.createServer(serverApp.app)
 
     const io = new Server(server, {
