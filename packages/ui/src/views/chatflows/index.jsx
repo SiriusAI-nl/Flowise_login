@@ -41,6 +41,7 @@ const Chatflows = () => {
     const [search, setSearch] = useState('')
     const [loginDialogOpen, setLoginDialogOpen] = useState(false)
     const [loginDialogProps, setLoginDialogProps] = useState({})
+    const [chatflows, setChatflows] = useState([])
 
     const getAllChatflowsApi = useApi(chatflowsApi.getAllChatflows)
     const [view, setView] = useState(localStorage.getItem('flowDisplayStyle') || 'card')
@@ -77,53 +78,53 @@ const Chatflows = () => {
         navigate(`/canvas/${selectedChatflow.id}`)
     }
 
-    useEffect(() => {
-        getAllChatflowsApi.request()
+    const processImages = (chatflowsData) => {
+        const newImages = {}
+        for (let i = 0; i < chatflowsData.length; i += 1) {
+            try {
+                const flowDataStr = chatflowsData[i].flowData
+                const flowData = JSON.parse(flowDataStr)
+                const nodes = flowData.nodes || []
+                newImages[chatflowsData[i].id] = []
+                for (let j = 0; j < nodes.length; j += 1) {
+                    const imageSrc = `${baseURL}/api/v1/node-icon/${nodes[j].data.name}`
+                    if (!newImages[chatflowsData[i].id].includes(imageSrc)) {
+                        newImages[chatflowsData[i].id].push(imageSrc)
+                    }
+                }
+            } catch (e) {
+                console.error(e)
+            }
+        }
+        return newImages
+    }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useEffect(() => {
-        if (getAllChatflowsApi.error) {
-            if (getAllChatflowsApi.error?.response?.status === 401) {
+    const loadChatflows = async () => {
+        try {
+            const result = await chatflowsApi.getAllChatflows()
+            setChatflows(result.data)
+            const newImages = processImages(result.data)
+            setImages(newImages)
+            setLoading(false)
+        } catch (error) {
+            if (error?.response?.status === 401) {
                 setLoginDialogProps({
                     title: 'Login',
                     confirmButtonName: 'Login'
                 })
                 setLoginDialogOpen(true)
-            } else {
-                setError(getAllChatflowsApi.error)
             }
+            setLoading(false)
         }
-    }, [getAllChatflowsApi.error])
+    }
+
+    useEffect(() => {
+        loadChatflows()
+    }, [])
 
     useEffect(() => {
         setLoading(getAllChatflowsApi.loading)
     }, [getAllChatflowsApi.loading])
-
-    useEffect(() => {
-        if (getAllChatflowsApi.data) {
-            try {
-                const chatflows = getAllChatflowsApi.data
-                const images = {}
-                for (let i = 0; i < chatflows.length; i += 1) {
-                    const flowDataStr = chatflows[i].flowData
-                    const flowData = JSON.parse(flowDataStr)
-                    const nodes = flowData.nodes || []
-                    images[chatflows[i].id] = []
-                    for (let j = 0; j < nodes.length; j += 1) {
-                        const imageSrc = `${baseURL}/api/v1/node-icon/${nodes[j].data.name}`
-                        if (!images[chatflows[i].id].includes(imageSrc)) {
-                            images[chatflows[i].id].push(imageSrc)
-                        }
-                    }
-                }
-                setImages(images)
-            } catch (e) {
-                console.error(e)
-            }
-        }
-    }, [getAllChatflowsApi.data])
 
     return (
         <MainCard>

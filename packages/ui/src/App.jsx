@@ -21,7 +21,9 @@ const App = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
+        console.log('Auth use effect')
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            console.log('Auth state change effect')
             try {
                 if (user) {
                     const token = await user.getIdToken()

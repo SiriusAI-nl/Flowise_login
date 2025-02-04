@@ -10,11 +10,13 @@ router.post('/login', async (req, res) => {
         const { username, password } = req.body
 
         if (!username || !password) {
+            console.log('Username and password are required')
             return res.status(400).json({ message: 'Username and password are required' })
         }
 
         const user = await authService.validateUser(username, password)
         if (!user) {
+            console.log('Username and password are required')
             return res.status(401).json({ message: 'Invalid username or password' })
         }
 

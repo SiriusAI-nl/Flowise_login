@@ -513,6 +513,9 @@ importers:
       '@aws-sdk/credential-provider-node':
         specifier: ^3.726.0
         version: 3.726.0(@aws-sdk/client-sso-oidc@3.723.0(@aws-sdk/client-sts@3.723.0))(@aws-sdk/client-sts@3.723.0)
+      '@langchain/community':
+        specifier: 0.3.14
+        version: 0.3.14(x26pcqjkg4xgthzk4ua4nbfq4y)
       '@oclif/core':
         specifier: ^1.26.2
         version: 1.26.2
@@ -612,6 +615,9 @@ importers:
       firebase:
         specifier: ^11.2.0
         version: 11.2.0
+      firebase-admin:
+        specifier: ^11.10.1
+        version: 11.11.1(encoding@0.1.13)
       flowise-components:
         specifier: workspace:^
         version: link:../components
@@ -837,10 +843,10 @@ importers:
         version: 11.11.1(encoding@0.1.13)
       flowise-embed:
         specifier: latest
-        version: 2.1.0
+        version: 2.1.1
       flowise-embed-react:
         specifier: latest
-        version: 1.0.7(@types/node@20.12.12)(flowise-embed@2.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.71.1)(terser@5.29.1)(typescript@5.5.2)
+        version: 1.0.7(@types/node@20.12.12)(flowise-embed@2.1.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.71.1)(terser@5.29.1)(typescript@5.5.2)
       flowise-react-json-view:
         specifier: '*'
         version: 1.21.7(@types/react@18.2.65)(encoding@0.1.13)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -10012,8 +10018,8 @@ packages:
       flowise-embed: '*'
       react: 18.x
 
-  flowise-embed@2.1.0:
-    resolution: {integrity: sha512-a6A4gnYUCOXxiSQtIZciAQe9vyN7geM5CIv5fVTOpCEkjK13j2tSRjKe+XZqm8hb/nYe5me+5qCsrioqXjl3Kw==}
+  flowise-embed@2.1.1:
+    resolution: {integrity: sha512-CelUG75nYsVmw22SIGgxDcFSW2STTCqX18868KME0zLUqcF6zjuUgWrTcls0JZs/5TufLNA5iYIpLJfeKef5Zg==}
 
   flowise-react-json-view@1.21.7:
     resolution: {integrity: sha512-oFjwtSLJkUWk6waLh8heCQ4o9b60FJRA2X8LefaZp5WaJvj/Rr2HILjk+ocf1JkfTcq8jc6t2jfIybg4leWsaQ==}
@@ -22681,6 +22687,21 @@ snapshots:
       - '@aws-sdk/client-sts'
       - aws-crt
 
+  '@langchain/aws@0.1.2(@aws-sdk/client-sso-oidc@3.723.0(@aws-sdk/client-sts@3.723.0))(@aws-sdk/client-sts@3.723.0)(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))':
+    dependencies:
+      '@aws-sdk/client-bedrock-agent-runtime': 3.730.0
+      '@aws-sdk/client-bedrock-runtime': 3.624.0
+      '@aws-sdk/client-kendra': 3.624.0
+      '@aws-sdk/credential-provider-node': 3.723.0(@aws-sdk/client-sso-oidc@3.723.0(@aws-sdk/client-sts@3.723.0))(@aws-sdk/client-sts@3.723.0)
+      '@langchain/core': 0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      zod: 3.23.8
+      zod-to-json-schema: 3.23.1(zod@3.23.8)
+    transitivePeerDependencies:
+      - '@aws-sdk/client-sso-oidc'
+      - '@aws-sdk/client-sts'
+      - aws-crt
+    optional: true
+
   '@langchain/baidu-qianfan@0.1.0(@babel/core@7.24.0)(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(encoding@0.1.13)':
     dependencies:
       '@baiducloud/qianfan': 0.1.9(@babel/core@7.24.0)(encoding@0.1.13)
@@ -22700,6 +22721,95 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - openai
+
+  '@langchain/community@0.3.14(x26pcqjkg4xgthzk4ua4nbfq4y)':
+    dependencies:
+      '@ibm-cloud/watsonx-ai': 1.1.2
+      '@langchain/core': 0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      '@langchain/openai': 0.3.13(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(encoding@0.1.13)
+      binary-extensions: 2.2.0
+      expr-eval: 2.0.2
+      flat: 5.0.2
+      ibm-cloud-sdk-core: 5.1.0
+      js-yaml: 4.1.0
+      langchain: 0.3.5(vu5dyo3nxgcvguoqt76bcuvx4e)
+      langsmith: 0.2.5(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      uuid: 10.0.0
+      zod: 3.22.4
+      zod-to-json-schema: 3.23.1(zod@3.22.4)
+    optionalDependencies:
+      '@aws-crypto/sha256-js': 5.2.0
+      '@aws-sdk/client-bedrock-agent-runtime': 3.730.0
+      '@aws-sdk/client-bedrock-runtime': 3.624.0
+      '@aws-sdk/client-dynamodb': 3.529.1
+      '@aws-sdk/client-kendra': 3.624.0
+      '@aws-sdk/client-s3': 3.529.1
+      '@aws-sdk/credential-provider-node': 3.726.0(@aws-sdk/client-sso-oidc@3.723.0(@aws-sdk/client-sts@3.723.0))(@aws-sdk/client-sts@3.723.0)
+      '@datastax/astra-db-ts': 1.5.0
+      '@elastic/elasticsearch': 8.12.2
+      '@getzep/zep-cloud': 1.0.7(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(encoding@0.1.13)(langchain@0.3.5(paklq7onmkfazd5f6qlllyxtve))
+      '@getzep/zep-js': 0.9.0
+      '@gomomento/sdk': 1.68.1(encoding@0.1.13)
+      '@gomomento/sdk-core': 1.68.1
+      '@google-ai/generativelanguage': 2.6.0(encoding@0.1.13)
+      '@google-cloud/storage': 6.12.0(encoding@0.1.13)
+      '@huggingface/inference': 2.7.0
+      '@notionhq/client': 2.2.14(encoding@0.1.13)
+      '@opensearch-project/opensearch': 1.2.0
+      '@pinecone-database/pinecone': 4.0.0
+      '@qdrant/js-client-rest': 1.9.0(typescript@5.5.2)
+      '@smithy/eventstream-codec': 2.1.4
+      '@smithy/protocol-http': 3.2.2
+      '@smithy/signature-v4': 2.1.4
+      '@smithy/util-utf8': 2.2.0
+      '@upstash/redis': 1.22.1(encoding@0.1.13)
+      '@upstash/vector': 1.1.5
+      '@zilliz/milvus2-sdk-node': 2.4.2
+      apify-client: 2.9.3
+      chromadb: 1.8.1(@google/generative-ai@0.15.0)(cohere-ai@7.10.0(encoding@0.1.13))(encoding@0.1.13)(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      cohere-ai: 7.10.0(encoding@0.1.13)
+      crypto-js: 4.2.0
+      d3-dsv: 2.0.0
+      epub2: 3.0.2(ts-toolbelt@9.6.0)
+      faiss-node: 0.5.1
+      firebase-admin: 11.11.1(encoding@0.1.13)
+      google-auth-library: 9.6.3(encoding@0.1.13)
+      html-to-text: 9.0.5
+      ignore: 5.3.1
+      ioredis: 5.3.2
+      jsdom: 22.1.0(bufferutil@4.0.8)(canvas@3.0.1)(utf-8-validate@6.0.4)
+      jsonwebtoken: 9.0.2
+      lodash: 4.17.21
+      lunary: 0.7.12(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))(react@18.2.0)
+      mammoth: 1.7.2
+      mysql2: 3.11.4
+      neo4j-driver: 5.27.0
+      notion-to-md: 3.1.1(encoding@0.1.13)
+      pdf-parse: 1.1.1
+      pg: 8.11.3
+      playwright: 1.42.1
+      portkey-ai: 0.1.16
+      puppeteer: 20.9.0(bufferutil@4.0.8)(encoding@0.1.13)(typescript@5.5.2)(utf-8-validate@6.0.4)
+      pyodide: 0.25.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+      redis: 4.6.13
+      srt-parser-2: 1.2.3
+      typeorm: 0.3.20(ioredis@5.3.2)(mongodb@6.3.0(gcp-metadata@5.3.0(encoding@0.1.13))(socks@2.8.1))(mysql2@3.11.4)(pg@8.11.3)(redis@4.6.13)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.4.6)(@types/node@20.12.12)(typescript@5.5.2))
+      weaviate-ts-client: 2.1.1(encoding@0.1.13)(graphql@16.8.1)
+      ws: 8.17.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+    transitivePeerDependencies:
+      - '@langchain/anthropic'
+      - '@langchain/aws'
+      - '@langchain/cohere'
+      - '@langchain/google-genai'
+      - '@langchain/google-vertexai'
+      - '@langchain/groq'
+      - '@langchain/mistralai'
+      - '@langchain/ollama'
+      - axios
+      - encoding
+      - handlebars
+      - openai
+      - peggy
 
   '@langchain/community@0.3.14(xyni75j2oqbfwivwfcxqlpiclm)':
     dependencies:
@@ -30390,10 +30500,10 @@ snapshots:
 
   flatted@3.3.1: {}
 
-  flowise-embed-react@1.0.7(@types/node@20.12.12)(flowise-embed@2.1.0)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.71.1)(terser@5.29.1)(typescript@5.5.2):
+  flowise-embed-react@1.0.7(@types/node@20.12.12)(flowise-embed@2.1.1)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.71.1)(terser@5.29.1)(typescript@5.5.2):
     dependencies:
       '@ladle/react': 2.5.1(@types/node@20.12.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(sass@1.71.1)(terser@5.29.1)(typescript@5.5.2)
-      flowise-embed: 2.1.0
+      flowise-embed: 2.1.1
       react: 18.2.0
     transitivePeerDependencies:
       - '@types/node'
@@ -30407,7 +30517,7 @@ snapshots:
       - terser
       - typescript
 
-  flowise-embed@2.1.0:
+  flowise-embed@2.1.1:
     dependencies:
       '@babel/core': 7.24.0
       '@microsoft/fetch-event-source': 2.0.1
@@ -32702,6 +32812,39 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  jsdom@22.1.0(bufferutil@4.0.8)(canvas@3.0.1)(utf-8-validate@6.0.4):
+    dependencies:
+      abab: 2.0.6
+      cssstyle: 3.0.0
+      data-urls: 4.0.0
+      decimal.js: 10.4.3
+      domexception: 4.0.0
+      form-data: 4.0.0
+      html-encoding-sniffer: 3.0.0
+      http-proxy-agent: 5.0.0
+      https-proxy-agent: 5.0.1
+      is-potential-custom-element-name: 1.0.1
+      nwsapi: 2.2.7
+      parse5: 7.1.2
+      rrweb-cssom: 0.6.0
+      saxes: 6.0.0
+      symbol-tree: 3.2.4
+      tough-cookie: 4.1.3
+      w3c-xmlserializer: 4.0.0
+      webidl-conversions: 7.0.0
+      whatwg-encoding: 2.0.0
+      whatwg-mimetype: 3.0.0
+      whatwg-url: 12.0.1
+      ws: 8.16.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
+      xml-name-validator: 4.0.0
+    optionalDependencies:
+      canvas: 3.0.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+    optional: true
+
   jsesc@0.5.0: {}
 
   jsesc@1.3.0: {}
@@ -32911,6 +33054,36 @@ snapshots:
       '@langchain/ollama': 0.1.2(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))
       axios: 1.6.2(debug@4.3.4)
       cheerio: 1.0.0-rc.12
+      typeorm: 0.3.20(ioredis@5.3.2)(mongodb@6.3.0(gcp-metadata@5.3.0(encoding@0.1.13))(socks@2.8.1))(mysql2@3.11.4)(pg@8.11.3)(redis@4.6.13)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.4.6)(@types/node@20.12.12)(typescript@5.5.2))
+    transitivePeerDependencies:
+      - encoding
+      - openai
+
+  langchain@0.3.5(vu5dyo3nxgcvguoqt76bcuvx4e):
+    dependencies:
+      '@langchain/core': 0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      '@langchain/openai': 0.3.13(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(encoding@0.1.13)
+      '@langchain/textsplitters': 0.0.1(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      js-tiktoken: 1.0.12
+      js-yaml: 4.1.0
+      jsonpointer: 5.0.1
+      langsmith: 0.2.5(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      openapi-types: 12.1.3
+      p-retry: 4.6.2
+      uuid: 10.0.0
+      yaml: 2.4.1
+      zod: 3.22.4
+      zod-to-json-schema: 3.23.1(zod@3.22.4)
+    optionalDependencies:
+      '@langchain/anthropic': 0.3.7(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(encoding@0.1.13)
+      '@langchain/aws': 0.1.2(@aws-sdk/client-sso-oidc@3.723.0(@aws-sdk/client-sts@3.723.0))(@aws-sdk/client-sts@3.723.0)(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))
+      '@langchain/cohere': 0.0.7(encoding@0.1.13)(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      '@langchain/google-genai': 0.1.3(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(zod@3.22.4)
+      '@langchain/google-vertexai': 0.1.2(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(encoding@0.1.13)(zod@3.22.4)
+      '@langchain/groq': 0.1.2(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))(encoding@0.1.13)
+      '@langchain/mistralai': 0.0.26(encoding@0.1.13)(openai@4.57.3(encoding@0.1.13)(zod@3.22.4))
+      '@langchain/ollama': 0.1.2(@langchain/core@0.3.18(openai@4.57.3(encoding@0.1.13)(zod@3.22.4)))
+      axios: 1.6.2(debug@4.3.4)
       typeorm: 0.3.20(ioredis@5.3.2)(mongodb@6.3.0(gcp-metadata@5.3.0(encoding@0.1.13))(socks@2.8.1))(mysql2@3.11.4)(pg@8.11.3)(redis@4.6.13)(sqlite3@5.1.7)(ts-node@10.9.2(@swc/core@1.4.6)(@types/node@20.12.12)(typescript@5.5.2))
     transitivePeerDependencies:
       - encoding
